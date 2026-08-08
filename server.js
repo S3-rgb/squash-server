@@ -14,13 +14,13 @@ App.post("/submit-drawing", async (Req, Res) => {
 		return Res.status(400).send("Invalid data")
 	}
 
-	const Canvas = createCanvas(1920, 1080)
+	const Canvas = createCanvas(720, 405)
 	const Ctx = Canvas.getContext("2d")
 
 	Ctx.fillStyle = "#1e1e1e"
-	Ctx.fillRect(0, 0, 1920, 1080)
+	Ctx.fillRect(0, 0, 720, 405)
 
-	const Scale = 1.5
+	const Scale = 1
 
 	for (const Stroke of Data.strokes) {
 		Ctx.save()
