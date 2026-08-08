@@ -38,15 +38,24 @@ App.post("/submit-drawing", async (Req, Res) => {
 	}))
 
 	try {
-		await Fetch(DiscordWebhookUrl, {
+		const Response = await Fetch(DiscordWebhookUrl, {
 			method: "POST",
 			body: Form,
 			headers: Form.getHeaders()
 		})
+		
+		const ResponseText = await Response.text()
+		console.log("Discord Status:", Response.status)
+		console.log("Discord Response:", ResponseText)
+
+		if (!Response.ok) {
+			return Res.status(500).send(ResponseText)
+		}
+		
 		Res.sendStatus(200)
 	} catch (Error) {
-		console.error(Error)
-		Res.sendStatus(500)
+		console.error("Fetch Error:", Error)
+		Res.status(500).send(Error.message)
 	}
 })
 
