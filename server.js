@@ -20,12 +20,14 @@ App.post("/submit-drawing", async (Req, Res) => {
 	Ctx.fillStyle = "#1e1e1e"
 	Ctx.fillRect(0, 0, 1200, 1200)
 
+	const Scale = 1.5
+
 	for (const Stroke of Data.strokes) {
 		Ctx.save()
-		Ctx.translate(Stroke.X * 2, Stroke.Y * 2)
+		Ctx.translate(Stroke.X * Scale, Stroke.Y * Scale)
 		Ctx.rotate((Stroke.R * Math.PI) / 180)
 		Ctx.fillStyle = "#ffffff"
-		Ctx.fillRect(-Stroke.SX, -Stroke.SY, Stroke.SX * 2, Stroke.SY * 2)
+		Ctx.fillRect(-Stroke.SX * Scale, -Stroke.SY * Scale, Stroke.SX * Scale * 2, Stroke.SY * Scale * 2)
 		Ctx.restore()
 	}
 
@@ -38,24 +40,15 @@ App.post("/submit-drawing", async (Req, Res) => {
 	}))
 
 	try {
-		const Response = await Fetch(DiscordWebhookUrl, {
+		await Fetch(DiscordWebhookUrl, {
 			method: "POST",
 			body: Form,
 			headers: Form.getHeaders()
 		})
-		
-		const ResponseText = await Response.text()
-		console.log("Discord Status:", Response.status)
-		console.log("Discord Response:", ResponseText)
-
-		if (!Response.ok) {
-			return Res.status(500).send(ResponseText)
-		}
-		
 		Res.sendStatus(200)
 	} catch (Error) {
-		console.error("Fetch Error:", Error)
-		Res.status(500).send(Error.message)
+		console.error(Error)
+		Res.sendStatus(500)
 	}
 })
 
