@@ -14,11 +14,11 @@ App.post("/submit-drawing", async (Req, Res) => {
 		return Res.status(400).send("Invalid data")
 	}
 
-	const Canvas = createCanvas(1200, 1200)
+	const Canvas = createCanvas(1920, 1080)
 	const Ctx = Canvas.getContext("2d")
 
 	Ctx.fillStyle = "#1e1e1e"
-	Ctx.fillRect(0, 0, 1200, 1200)
+	Ctx.fillRect(0, 0, 1920, 1080)
 
 	const Scale = 1.5
 
