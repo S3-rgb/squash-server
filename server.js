@@ -27,7 +27,7 @@ App.post("/submit-drawing", async (Req, Res) => {
 		Ctx.translate(Stroke.X * Scale, Stroke.Y * Scale)
 		Ctx.rotate((Stroke.R * Math.PI) / 180)
 		Ctx.fillStyle = "#ffffff"
-		Ctx.fillRect(-Stroke.SX * Scale, -Stroke.SY * Scale, Stroke.SX * Scale * 2, Stroke.SY * Scale * 2)
+		Ctx.fillRect(-Stroke.SX * Scale, -3 * Scale, Stroke.SX * Scale * 2, 3 * Scale * 2)
 		Ctx.restore()
 	}
 
